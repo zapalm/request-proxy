@@ -1,0 +1,42 @@
+{
+  "name": "zapalm/requestProxy",
+  "type": "library",
+  "description": "The simple PHP-library to proxy HTTP-requests.",
+  "keywords": [
+    "proxy",
+    "http",
+    "request"
+  ],
+  "homepage": "https://github.com/zapalm/requestProxy",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maksim T.",
+      "email": "zapalm@yandex.com",
+      "role": "Developer"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/zapalm/curlHelper"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "zapalm/curlHelper": "dev-master",
+    "ext-json": "*",
+    "ext-curl": "*",
+    "php": ">=5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "zapalm\\requestProxy\\": ""
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "5.5"
+    }
+  }
+}

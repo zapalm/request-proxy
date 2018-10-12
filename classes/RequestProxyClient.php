@@ -27,10 +27,13 @@ class RequestProxyClient {
     private $requestsData;
 
     /** @var string Хост проксирующего сервиса */
-    private $host;
+    private $serverUrl;
 
     /** @var RequestProxyResponse[] Контент */
     private $content;
+
+    /** @var string Токен безопасности (вместо пароля) */
+    private $token;
 
     /** @var string[] Ошибки */
     private $errors = [];
@@ -38,15 +41,17 @@ class RequestProxyClient {
     /**
      * Конструктор.
      *
-     * @param string $host   Хост проксирующего сервиса.
-     * @param array  $config Данные о запросах, которые должны быть сделаны через прокси.
+     * @param string $serverUrl Url проксирующего сервиса.
+     * @param array  $config    Данные о запросах, которые должны быть сделаны через прокси.
+     * @param string $token     Токен безопасности (вместо пароля).
      *
      * @author Maksim T. <zapalm@yandex.com>
      */
-    public function __construct($host, array $config) {
-        $this->curlHelper = new CurlHelper();
-        $this->host = $host;
+    public function __construct($serverUrl, array $config, $token) {
+        $this->curlHelper   = new CurlHelper();
+        $this->serverUrl    = $serverUrl;
         $this->requestsData = $config;
+        $this->token        = $token;
     }
 
     /**
@@ -58,7 +63,7 @@ class RequestProxyClient {
      */
     public function execute() {
         $response = $this->curlHelper
-            ->setUrl('http://' . $this->host . '/request-proxy/index.php?token=1Ruk2BnIoAinRPCpBcPR')
+            ->setUrl($this->serverUrl . '?token=' . $this->token)
             ->setReturn(true)
             ->setHeader(false)
             ->setPost(true)

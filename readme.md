@@ -1,7 +1,8 @@
-# HTTP request proxy library
-This is the full documented (for now in Russian) simple PHP-library to proxy HTTP-requests.
-The approach is based on requests via cUrl that are doing from a remote host.
-See tests for usage examples.
+# About this project
+This is a simple PHP-library to create proxy-service via HTTP-requests just having CURL. 
+That is, there is no need to install any other software, such as a proxy server (you need just PHP).
+Seriously though, this project was created just for fun :)
+See `tests` directory for usage examples.
 
 ## Installation
 Add the dependency directly to your `composer.json` file:
@@ -9,21 +10,17 @@ Add the dependency directly to your `composer.json` file:
 "repositories": [
   {
     "type": "vcs",
-    "url": "https://github.com/zapalm/requestProxy"
+    "url": "https://github.com/zapalm/request-proxy"
   }
 ],
 "require": {
-  "php": ">=5.5",
-  "zapalm/requestProxy": "dev-master"
+  "php": ">=5.6",
+  "zapalm/request-proxy": "dev-master"
 },
 ```
 
 ## How to help the project grow and get updates
-* **Become the [patron][2]** to help me work more for supporting and improving this project.
-* Report an issue.
-* Give me feedback or [contact with me][3].
-* Give the star to the project.
-* Contribute to the code.
+Give the **star** to the project. That's all! :)
 
 ## Contributing to the code
 
@@ -46,12 +43,10 @@ Contributors wishing to edit the project's files should follow the following pro
 5. Change the files in your branch. Be sure to follow [the coding standards][1].
 6. Push your changed branch to your fork in your GitHub account.
 7. Create a pull request for your changes **on the *dev* branch** of the project.
-   If you need help to make a pull request, read the [Github help page about creating pull requests][4].
+   If you need help to make a pull request, read the [GitHub help page about creating pull requests][2].
 8. Wait for the maintainer to apply your changes.
 
 **Do not hesitate to create a pull request if even it's hard for you to apply the coding standards.**
 
 [1]: https://www.php-fig.org/psr/
-[2]: https://www.patreon.com/zapalm
-[3]: http://zapalm.ru/
-[4]: https://help.github.com/articles/about-pull-requests/
+[2]: https://help.github.com/articles/about-pull-requests/

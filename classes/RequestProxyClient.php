@@ -4,9 +4,9 @@
  *
  * @author    Maksim T. <zapalm@yandex.com>
  * @copyright 2018 Maksim T.
- * @license   https://opensource.org/licenses/MIT MIT
- * @link      https://github.com/zapalm/requestProxy GitHub
- * @link      http://zapalm.ru/ Author's Homepage
+ * @license   MIT
+ * @link      https://github.com/zapalm/request-proxy GitHub
+ * @link      https://zapalm.ru Author's Homepage
  */
 
 namespace zapalm\requestProxy\classes;
@@ -69,7 +69,7 @@ class RequestProxyClient {
             ->setPost(true)
             ->setConnectTimeOut(5)
             ->setTimeOut(0)
-            ->setPostFields('content=' . json_encode($this->requestsData))
+            ->setPostFields('content=' . urlencode(json_encode($this->requestsData)))
             ->execute()
         ;
 
@@ -81,7 +81,7 @@ class RequestProxyClient {
 
         $data = @json_decode($response); /** @var RequestProxyResponse|\stdClass $data */
         if (null === $data) {
-            $this->addError('Неудалось декодировать ответ: ' . PHP_EOL . $response);
+            $this->addError('Не удалось декодировать ответ: ' . PHP_EOL . $response);
 
             return false;
         }

@@ -4,9 +4,9 @@
  *
  * @author    Maksim T. <zapalm@yandex.com>
  * @copyright 2018 Maksim T.
- * @license   https://opensource.org/licenses/MIT MIT
- * @link      https://github.com/zapalm/requestProxy GitHub
- * @link      http://zapalm.ru/ Author's Homepage
+ * @license   MIT
+ * @link      https://github.com/zapalm/request-proxy GitHub
+ * @link      https://zapalm.ru Author's Homepage
  */
 
 namespace zapalm\requestProxy\classes;
@@ -48,13 +48,19 @@ class RequestProxyServer {
         foreach ($this->config as $requestConfig) {
             $curlHelper = new CurlHelper();
 
+            $requestConfig = (object)$requestConfig;
+            unset($requestConfig->options[CURLOPT_CAINFO]);
+            unset($requestConfig->options[CURLOPT_PROXY]);
+            unset($requestConfig->options[CURLOPT_PROXYUSERNAME]);
+            unset($requestConfig->options[CURLOPT_PROXYPASSWORD]);
+            unset($requestConfig->options[CURLOPT_PROXYTYPE]);
+
             $curlHelper->importOptions($requestConfig->options);
             $curlHelper->importParams($requestConfig->params);
             if (null !== $cookies) {
                 $curlHelper->setCookie($cookies);
             }
 
-            $error    = null;
             $response = $curlHelper->execute();
             if (false === $response) {
                 $this->response[] = new RequestProxyResponse(false, 'cURL вернул ошибку: #' . $curlHelper->getErrorCode(), null);
@@ -65,7 +71,7 @@ class RequestProxyServer {
             if ($requestConfig->cookie) {
                 $cookies = $curlHelper::parseCookie($response);
                 if (null === $cookies) {
-                    $this->response[] = new RequestProxyResponse(false, 'Неудалось разобрать cookie.', $response);
+                    $this->response[] = new RequestProxyResponse(false, 'Не удалось разобрать cookie.', $response);
 
                     break;
                 }

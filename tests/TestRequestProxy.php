@@ -4,9 +4,9 @@
  *
  * @author    Maksim T. <zapalm@yandex.com>
  * @copyright 2018 Maksim T.
- * @license   https://opensource.org/licenses/MIT MIT
- * @link      https://github.com/zapalm/requestProxy GitHub
- * @link      http://zapalm.ru/ Author's Homepage
+ * @license   MIT
+ * @link      https://github.com/zapalm/request-proxy GitHub
+ * @link      https://zapalm.ru Author's Homepage
  */
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -28,8 +28,8 @@ class TestRequestProxy extends PHPUnit_Framework_TestCase
     public function testRequestByExample1()
     {
         $host  = 'localhost';
-        $path  = 'http://' . $host . '/requestProxy/examples/1';
-        $token = '1Ruk2BnIoAinRPCpBcPR';
+        $path  = 'http://' . $host . '/request-proxy/examples/1';
+        $token = 'CwbidqMDcjJSPNFGWz1y';
 
         $requestProxyConfig = [];
 
@@ -50,7 +50,7 @@ class TestRequestProxy extends PHPUnit_Framework_TestCase
         $requestProxyConfig[] = new RequestProxyConfig(true, $curlHelper->exportOptions(), $curlHelper->exportParams());
         // -- -- --
 
-        // -- Формируем запрос на конечный ресурс, который дожен подать прокси
+        // -- Формируем запрос на конечный ресурс, который должен подать прокси
         $contentUrl = $path . '/test-content.php';
 
         $curlHelper = (new CurlHelper())

@@ -4,9 +4,9 @@
  *
  * @author    Maksim T. <zapalm@yandex.com>
  * @copyright 2018 Maksim T.
- * @license   https://opensource.org/licenses/MIT MIT
- * @link      https://github.com/zapalm/requestProxy GitHub
- * @link      http://zapalm.ru/ Author's Homepage
+ * @license   MIT
+ * @link      https://github.com/zapalm/request-proxy GitHub
+ * @link      https://zapalm.ru Author's Homepage
  */
 
 namespace zapalm\requestProxy\classes;

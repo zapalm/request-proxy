@@ -1,13 +1,15 @@
 {
-  "name": "zapalm/requestProxy",
+  "name": "zapalm/request-proxy",
   "type": "library",
-  "description": "The simple PHP-library to proxy HTTP-requests.",
+  "description": "The simple PHP-library to proxy HTTP-requests just having CURL.",
   "keywords": [
-    "proxy",
-    "http",
-    "request"
+    "proxy-client",
+    "proxy-server",
+    "CURL",
+    "requests",
+    "php-library"
   ],
-  "homepage": "https://github.com/zapalm/requestProxy",
+  "homepage": "https://github.com/zapalm/request-proxy",
   "license": "MIT",
   "authors": [
     {
@@ -19,24 +21,20 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/zapalm/curlHelper"
+      "url": "https://github.com/zapalm/curl-helper"
     }
   ],
   "minimum-stability": "dev",
   "require": {
-    "zapalm/curlHelper": "dev-master",
-    "ext-json": "*",
+    "php": ">=5.6",
     "ext-curl": "*",
-    "php": ">=5.5"
+    "ext-json": "*",
+    "zapalm/curl-helper": "dev-master"
   },
   "autoload": {
     "psr-4": {
-      "zapalm\\requestProxy\\": ""
-    }
-  },
-  "config": {
-    "platform": {
-      "php": "5.5"
+      "zapalm\\requestProxy\\classes\\": "classes",
+      "zapalm\\requestProxy\\controllers\\": "controllers"
     }
   }
 }

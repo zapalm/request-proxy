@@ -52,8 +52,8 @@ class IndexController {
             return $this->response(false, 'Данные не переданы.');
         }
 
-        $config = @json_decode($request, true);
-        if (null === $config) {
+        $config = json_decode($request, true);
+        if (false === is_array($config) || [] === $config) {
             return $this->response(false, 'Неверный формат данных.');
         }
 

@@ -79,7 +79,7 @@ class RequestProxyClient {
             return false;
         }
 
-        $data = @json_decode($response); /** @var RequestProxyResponse|\stdClass $data */
+        $data = json_decode($response); /** @var RequestProxyResponse|\stdClass $data */
         if (null === $data) {
             $this->addError('Не удалось декодировать ответ: ' . PHP_EOL . $response);
 

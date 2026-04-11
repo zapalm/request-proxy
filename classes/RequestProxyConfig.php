@@ -30,13 +30,13 @@ class RequestProxyConfig {
     /**
      * Конструктор.
      *
-     * @param bool     $cookie  Данные о запросе для получения cookie.
-     * @param string[] $options Опции настройки CURL.
-     * @param string[] $params  Параметры для CurlHelper.
+     * @param bool  $cookie  Данные о запросе для получения cookie.
+     * @param array $options Опции настройки CURL.
+     * @param array $params  Параметры для CurlHelper.
      *
      * @author Maksim T. <zapalm@yandex.com>
      */
-    public function __construct($cookie, array $options, array $params) {
+    public function __construct($cookie, array $options, array $params = []) {
         $this->cookie  = $cookie;
         $this->options = $options;
         $this->params  = $params;

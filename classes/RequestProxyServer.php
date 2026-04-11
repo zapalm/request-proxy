@@ -20,21 +20,31 @@ use zapalm\curlHelper\CurlHelper;
  */
 class RequestProxyServer {
 
-    /** @var RequestProxyConfig[] Данные о запросах */
+    /** @var RequestProxyConfig[]|array Массив с данными о запросах. */
     private $config;
 
-    /** @var RequestProxyResponse[] Ответ клиенту */
+    /** @var bool Разрешить импортирование параметров CurlHelper (обычно, не следует это делать - всё зависит от ситуации и кастомизации CurlHelper). */
+    private $allowImportParams;
+
+    /** @var bool Разрешить импортирование опций настройки CURL о промежуточном прокси. */
+    private $allowIntermediateProxy;
+
+    /** @var RequestProxyResponse[] Ответ прокси-клиенту с данными об ответах на запросы. */
     private $response = [];
 
     /**
      * Конструктор.
      *
-     * @param RequestProxyConfig[] $config Данные о запросах.
+     * @param RequestProxyConfig[]|array $config                 Массив с данными о запросах.
+     * @param bool                       $allowImportParams      Разрешить импортирование параметров CurlHelper (обычно, не следует это делать - всё зависит от ситуации и кастомизации CurlHelper).
+     * @param bool                       $allowIntermediateProxy Разрешить импортирование опций настройки CURL о промежуточном прокси.
      *
      * @author Maksim T. <zapalm@yandex.com>
      */
-    public function __construct(array $config) {
-        $this->config = $config;
+    public function __construct(array $config, $allowImportParams = false, $allowIntermediateProxy = false) {
+        $this->config                 = $config;
+        $this->allowImportParams      = $allowImportParams;
+        $this->allowIntermediateProxy = $allowIntermediateProxy;
     }
 
     /**
@@ -46,20 +56,30 @@ class RequestProxyServer {
         $cookies = null;
 
         foreach ($this->config as $requestConfig) {
-            $curlHelper = new CurlHelper();
+            // -- Подготавливаем опции для настройки CurlHelper
+            $requestConfig = (object)$requestConfig; /** @var RequestProxyConfig|object $requestConfig */
 
-            $requestConfig = (object)$requestConfig;
             unset($requestConfig->options[CURLOPT_CAINFO]);
-            unset($requestConfig->options[CURLOPT_PROXY]);
-            unset($requestConfig->options[CURLOPT_PROXYUSERNAME]);
-            unset($requestConfig->options[CURLOPT_PROXYPASSWORD]);
-            unset($requestConfig->options[CURLOPT_PROXYTYPE]);
 
+            if (false === $this->allowIntermediateProxy) {
+                unset($requestConfig->options[CURLOPT_PROXY]);
+                unset($requestConfig->options[CURLOPT_PROXYUSERNAME]);
+                unset($requestConfig->options[CURLOPT_PROXYPASSWORD]);
+                unset($requestConfig->options[CURLOPT_PROXYTYPE]);
+            }
+            // -- -- --
+
+            // -- Настраиваем CurlHelper
+            $curlHelper = new CurlHelper();
             $curlHelper->importOptions($requestConfig->options);
-            $curlHelper->importParams($requestConfig->params);
+            if ($this->allowImportParams && [] !== $requestConfig->params) {
+                $curlHelper->importParams($requestConfig->params);
+            }
+
             if (null !== $cookies) {
                 $curlHelper->setCookie($cookies);
             }
+            // -- -- --
 
             $response = $curlHelper->execute();
             if (false === $response) {

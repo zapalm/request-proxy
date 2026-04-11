@@ -10,7 +10,7 @@
  */
 
 /**
- * Контроллер.
+ * Точка входа.
  *
  * @author Maksim T. <zapalm@yandex.com>
  */

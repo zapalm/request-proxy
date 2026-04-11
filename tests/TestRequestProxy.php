@@ -18,6 +18,8 @@ use zapalm\requestProxy\classes\RequestProxyConfig;
 /**
  * Тест работы проксирующего сервиса.
  *
+ * Запуск разрешён только на локальном ПК - см. файл ".htaccess" в корне.
+ *
  * @author Maksim T. <zapalm@yandex.com>
  */
 class TestRequestProxy extends PHPUnit_Framework_TestCase
@@ -27,6 +29,7 @@ class TestRequestProxy extends PHPUnit_Framework_TestCase
      */
     public function testRequestByExample1()
     {
+        // Входные данные для теста (отредактировать при необходимости запуска теста)
         $host  = 'localhost';
         $path  = 'http://' . $host . '/request-proxy/examples/1';
         $token = 'CwbidqMDcjJSPNFGWz1y';
@@ -68,7 +71,7 @@ class TestRequestProxy extends PHPUnit_Framework_TestCase
         ;
 
         $requestProxyConfig[] = new RequestProxyConfig(false, $curlHelper->exportOptions(), $curlHelper->exportParams());
-        $proxyClient          = new RequestProxyClient($path . '/index.php', $requestProxyConfig, $token);
+        $proxyClient          = new RequestProxyClient($path . '/test-api.php', $requestProxyConfig, $token);
         // -- -- --
 
         // -- Проверяем ответ прокси

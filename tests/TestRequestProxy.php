@@ -41,8 +41,7 @@ class TestRequestProxy extends PHPUnit_Framework_TestCase
             ->setHttpHeader([
                 'Accept: */*',
                 'Cache-Control: no-cache',
-                'Connection: Keep-Alive',
-                'Host: ' . $host,
+                'Connection: keep-alive',
             ])
             ->setUrl($path . '/test-cookie.php')
         ;
@@ -58,13 +57,11 @@ class TestRequestProxy extends PHPUnit_Framework_TestCase
             ->setReturn(true)
             ->setHeader(false)
             ->setPost(true)
-            ->setReferer('http://localhost/')
+            ->setReferer('http://' . $host)
             ->setHttpHeader([
                 'Accept: */*',
                 'Cache-Control: no-cache',
-                'Connection: Keep-Alive',
-                'Host: ' . $host,
-                'Proxy-Connection: keep-alive',
+                'Connection: keep-alive',
             ])
             ->setPostFields(['postField1' => 1, 'postField2' => 2])
             ->setPause(1, 4)

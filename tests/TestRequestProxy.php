@@ -77,7 +77,7 @@ class TestRequestProxy extends PHPUnit_Framework_TestCase
         // -- Проверяем ответ прокси
         $proxyResult = $proxyClient->execute();
         if (false === $proxyResult) {
-            echo implode(PHP_EOL, $proxyClient->getErrors());
+            echo $proxyClient->getErrorMessage();
 
             return;
         }

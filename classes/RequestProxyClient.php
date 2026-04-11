@@ -120,9 +120,22 @@ class RequestProxyClient {
     }
 
     /**
+     * Получить сообщение об ошибке.
+     *
+     * @return string
+     *
+     * @author Maksim T. <zapalm@yandex.com>
+     */
+    public function getErrorMessage() {
+        return implode(' ', $this->errors);
+    }
+
+    /**
      * Получить список ошибок.
      *
      * @return string[]
+     *
+     * @deprecated Т.к. метод не удобен, т.к. ошибка всегда одна. См. замену: {@see getErrorMessage()}.
      *
      * @author Maksim T. <zapalm@yandex.com>
      */

@@ -63,7 +63,7 @@ class RequestProxyServer {
 
             $response = $curlHelper->execute();
             if (false === $response) {
-                $this->response[] = new RequestProxyResponse(false, 'cURL вернул ошибку: #' . $curlHelper->getErrorCode(), null);
+                $this->response[] = new RequestProxyResponse(false, 'CURL вернул ошибку: #' . $curlHelper->getErrorCode(), null);
 
                 break;
             }

@@ -20,7 +20,7 @@ use zapalm\curlHelper\CurlHelper;
  */
 class RequestProxyClient {
 
-    /** @var CurlHelper Помощник по работе с запросами через curl */
+    /** @var CurlHelper Экземпляр CurlHelper для отправки HTTP-запросов */
     private $curlHelper;
 
     /** @var RequestProxyConfig[] Данные о запросах, которые должны быть сделаны через прокси */
@@ -68,13 +68,13 @@ class RequestProxyClient {
             ->setHeader(false)
             ->setPost(true)
             ->setConnectTimeOut(5)
-            ->setTimeOut(0)
+            ->setTimeOut(0) // Не накладываем ограничение, т.к. некоторые ресурсы могут отвечать долго (делегируем веб-серверу сервиса - он сам отбросит запрос по своему таймауту)
             ->setPostFields('content=' . urlencode(json_encode($this->requestsData)))
             ->execute()
         ;
 
         if (false === $response) {
-            $this->addError('cURL вернул ошибку: #' . $this->getCurlErrorCode());
+            $this->addError('CURL вернул ошибку: #' . $this->getCurlErrorCode());
 
             return false;
         }
@@ -131,7 +131,7 @@ class RequestProxyClient {
     }
 
     /**
-     * Получить код последней ошибки cURL.
+     * Получить код последней ошибки CURL.
      *
      * @return int Код ошибки или 0, если ошибок не было.
      *

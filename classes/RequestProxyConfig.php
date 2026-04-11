@@ -18,21 +18,21 @@ namespace zapalm\requestProxy\classes;
  */
 class RequestProxyConfig {
 
-    /** @var bool Данные о запросе для получения cookie */
+    /** @var bool Данные о запросе для получения cookie. */
     public $cookie;
 
-    /** @var string[] Опции настройки cUrl */
+    /** @var string[] Опции настройки CURL. */
     public $options;
 
-    /** @var string[] Параметры запроса */
+    /** @var string[] Параметры для CurlHelper. */
     public $params;
 
     /**
      * Конструктор.
      *
      * @param bool     $cookie  Данные о запросе для получения cookie.
-     * @param string[] $options Опции настройки cUrl.
-     * @param string[] $params  Параметры запроса.
+     * @param string[] $options Опции настройки CURL.
+     * @param string[] $params  Параметры для CurlHelper.
      *
      * @author Maksim T. <zapalm@yandex.com>
      */

@@ -1,7 +1,7 @@
 {
   "name": "zapalm/request-proxy",
-  "type": "library",
-  "description": "The simple PHP-library to proxy HTTP-requests just having CURL.",
+  "type": "project",
+  "description": "The simple library/project to create proxy-service just having PHP and a web-server.",
   "keywords": [
     "proxy-client",
     "proxy-server",

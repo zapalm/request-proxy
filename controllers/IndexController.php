@@ -43,7 +43,7 @@ class IndexController {
      * @author Maksim T. <zapalm@yandex.com>
      */
     public function actionIndex() {
-        if ($this->token !== @$_GET['token']) {
+        if ($this->token !== @$_POST['token']) {
             return $this->response(false, 'Неверный токен.');
         }
 

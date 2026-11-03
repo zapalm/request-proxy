@@ -41,14 +41,15 @@ class RequestProxyClient {
     /**
      * Конструктор.
      *
-     * @param string $serverUrl Url проксирующего сервиса.
-     * @param array  $config    Данные о запросах, которые должны быть сделаны через прокси.
-     * @param string $token     Токен безопасности (вместо пароля).
+     * @param string          $serverUrl  Url проксирующего сервиса.
+     * @param array           $config     Данные о запросах, которые должны быть сделаны через прокси.
+     * @param string          $token      Токен безопасности (вместо пароля).
+     * @param CurlHelper|null $curlHelper Экземпляр CurlHelper (для индивидуальной настройки и переиспользования).
      *
      * @author Maksim T. <zapalm@yandex.com>
      */
-    public function __construct($serverUrl, array $config, $token) {
-        $this->curlHelper   = new CurlHelper();
+    public function __construct($serverUrl, array $config, $token, CurlHelper $curlHelper = null) {
+        $this->curlHelper   = $curlHelper;
         $this->serverUrl    = $serverUrl;
         $this->requestsData = $config;
         $this->token        = $token;
@@ -62,14 +63,23 @@ class RequestProxyClient {
      * @author Maksim T. <zapalm@yandex.com>
      */
     public function execute() {
+        if (null === $this->curlHelper) {
+            $this->curlHelper = (new CurlHelper())
+                ->setConnectTimeOut(5)
+                ->setTimeOut(0) // Не накладываем ограничение, т.к. некоторые ресурсы могут отвечать долго (делегируем веб-серверу сервиса - он сам отбросит запрос по своему таймауту)
+                ->setReturn(true)
+                ->setHeader(false)
+                ->setPost(true)
+                ->setEncoding('')
+            ;
+        }
+
         $response = $this->curlHelper
-            ->setUrl($this->serverUrl . '?token=' . $this->token)
-            ->setReturn(true)
-            ->setHeader(false)
-            ->setPost(true)
-            ->setConnectTimeOut(5)
-            ->setTimeOut(0) // Не накладываем ограничение, т.к. некоторые ресурсы могут отвечать долго (делегируем веб-серверу сервиса - он сам отбросит запрос по своему таймауту)
-            ->setPostFields('content=' . urlencode(json_encode($this->requestsData)))
+            ->setUrl($this->serverUrl)
+            ->setPostFields(http_build_query([
+                'content' => json_encode($this->requestsData),
+                'token'   => $this->token,
+            ]))
             ->execute()
         ;
 

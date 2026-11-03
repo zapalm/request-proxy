@@ -15,8 +15,11 @@
  * @author Maksim T. <zapalm@yandex.com>
  */
 
-error_reporting(E_ALL & ~E_DEPRECATED);
-ini_set('display_errors', 'on');
+$debug = false;
+if ($debug) {
+    error_reporting(E_ALL & ~E_DEPRECATED);
+    ini_set('display_errors', 'on');
+}
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
